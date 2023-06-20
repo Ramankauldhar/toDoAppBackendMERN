@@ -16,3 +16,21 @@ module.exports.saveTodoTask = async (req, res) => {
     res.send(data);
   });
 };
+
+module.exports.updateTodoTask = async (req, res) => {
+  const { _id } = req.body;
+  const { task } = req.body;
+  const { desc } = req.body;
+  const { dateAndTime } = req.body;
+  todoListModel
+    .findByIdAndUpdate(_id, { task, desc, dateAndTime })
+    .then(() => res.send("Updated the task data."))
+    .catch((err) => console.log(err));
+};
+module.exports.deleteTheTask = async (req, res) => {
+  const { _id } = req.body;
+  todoListModel
+    .findByIdAndDelete(_id)
+    .then(() => res.send("Deleted the task successfully."))
+    .catch((err) => console.log(err));
+};
